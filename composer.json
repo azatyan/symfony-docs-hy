@@ -1,5 +1,5 @@
 {
-    "name": "tigranazatya/symfony-blog-armenian",
+    "name": "tigran/symfony-blog-armenian",
     "description": "Symfony2 PHP Framework Armenian Blog",
 	"keywords": ["php", "symfony2", "documentation", "blog"],
     "license": "MIT",
@@ -20,9 +20,9 @@
 
     },
 	"autoload": {
-        "psr-0": { "SFA\\Blog": "" }
+        "psr-0": { "SFAB\\Blog": "" }
     },
-    "target-dir": "SFA/Blog",
+    "target-dir": "SFAB/Blog",
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
