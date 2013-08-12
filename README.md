@@ -1,7 +1,7 @@
 Symfony2 Framework Armenian Blog
 =============
 
-How Install
+How to Install
 ============
 <pre>composer require "tigran/symfony-blog-armenian"</pre>
 
