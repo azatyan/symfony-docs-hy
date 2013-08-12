@@ -1,4 +1,4 @@
-<a href="img/symfony2-distributions.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/--ar2AkuLhyY/TiB9WSDby0I/AAAAAAAAAvk/6WAE_wXr3Qg/s1600/symfony2-distributions.jpg"></a>
+<a href="img/symfony2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/--ar2AkuLhyY/TiB9WSDby0I/AAAAAAAAAvk/6WAE_wXr3Qg/s1600/symfony2-distributions.jpg"></a>
 <br>
 <b>Նախաբան</b><br>
 <br>
