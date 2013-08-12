@@ -1,2 +1,4 @@
-doc/index.md  Tigran Azatyan  tigran@azatyan.info
-img/symfony2hy.png Aram Hakobyan  info@arxangelo.info
+<ul>
+<li><b>doc/index.md</b>  Tigran Azatyan  tigran@azatyan.info </li>
+<li><b>img/symfony2hy.png</b> Aram Hakobyan  info@arxangelo.info</li>
+</ul>
