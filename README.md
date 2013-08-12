@@ -6,7 +6,7 @@ Symfony2 Framework Armenian Blog
 
 
 <ul class="simple">
-<li><a href="doc/index.md">Նախաբան</a></li>
+<li><a href="doc/index.md"><b>Նախաբան</b</a></li>
 <li><a href="#doc/http_fundamentals.md">Symfony2 and HTTP Fundamentals</a></li>
 <li><a href="#doc/from_flat_php_to_symfony2.md">Symfony2 versus Flat PHP</a></li>
 <li><a href="#doc/installation.md">Installing and Configuring Symfony</a></li>
