@@ -1,0 +1,32 @@
+{
+    "name": "tigranazatya/symfony-blog-armenian",
+    "description": "Symfony2 PHP Framework Armenian Blog",
+	"keywords": ["php", "symfony2", "documentation", "blog"],
+    "license": "MIT",
+	"type" : "symfony-documentation",
+    "authors": [
+        {
+            "name": "Tigran Azatyan",
+            "email": "tigran@azatyan.info",
+			"role": "Developer"
+        },
+		{
+            "name": "Aram Hakobyan",
+            "email": "info@arxangelo.info",
+			"role": "Designer"
+        }
+    ],
+    "require": {
+
+    },
+	"autoload": {
+        "psr-0": { "SFA\\Blog": "" }
+    },
+    "target-dir": "SFA/Blog",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "alpha-dev"
+        }
+    }
+}
