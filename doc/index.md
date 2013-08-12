@@ -1,4 +1,4 @@
-<a href="img/symfony2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/--ar2AkuLhyY/TiB9WSDby0I/AAAAAAAAAvk/6WAE_wXr3Qg/s1600/symfony2-distributions.jpg"></a>
+<img border="0" src="../img/symfony2hy.png" width="200"></a>
 <br>
 <b>Նախաբան</b><br>
 <br>
