@@ -39,5 +39,5 @@
 <ol>
 <li><b>Պաշտոնական կայք՝ </b><a href="http://symfony.com/">http://symfony.com/</a></li>
 <li><b>Բլոգ </b><a href="http://symfony.com/blog/">http://symfony.com/blog/</a></li>
-<li><b>Google </b><b>խումբ</b><b> </b><a href="http://groups.google.com/group/symfony-users?pli=1">http://groups.google.com/group/symfony-users?pli=1</a></li>
+<li><b>Google </b><b>խումբ</b><b> </b><a href="https://groups.google.com/forum/#!forum/symfony2">https://groups.google.com/forum/#!forum/symfony2</a></li>
 </ol>
