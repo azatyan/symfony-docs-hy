@@ -32,7 +32,7 @@
 <li>PHP (&gt; 5.3.2), խորհուրդ է տրվում 5.4.x տարբերակները</li>
 <li>SSH</li>
 <li>PHP APC Extension</li>
-<li></li>
+<li>Համատեղելիությունը ստուգելու համար հավաքեք <pre>php app/check.php</pre></li>
 </ol>
 
 </div>
