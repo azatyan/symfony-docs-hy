@@ -27,10 +27,12 @@
 
 <b>Ինչ է պետք սկսելու համար</b>
 <ol>
-<li>Apache</li>
-<li>MySQL</li>
-<li>PHP (&gt; 5.3.2)</li>
-<li>Command Prompt (SSH)</li>
+<li>HTTP սերվեր, օրինակ՝ Apache,Nginx,IIS</li>
+<li>Տվյալների բազա, օրինակ՝ MySQL կամ MongoDB</li>
+<li>PHP (&gt; 5.3.2), խորհուրդ է տրվում 5.4.x տարբերակները</li>
+<li>SSH</li>
+<li>PHP APC Extension</li>
+<li></li>
 </ol>
 
 </div>
