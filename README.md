@@ -1,5 +1,6 @@
 Symfony2 Framework Armenian Blog
 =============
+<a target="_blank" href="http://symfony.am"><b>Official Website</b</a>
 
 How to Install
 ============
