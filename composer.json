@@ -19,6 +19,11 @@
             "name": "Aram Hakobyan",
             "email": "info@arxangelo.info",
             "role": "Designer"
+        },
+        {
+            "name": "Samvel Kirakosyan",
+            "email": "to@sam.am",
+            "role": "Hoster"
         }
     ],
     "require": {},
