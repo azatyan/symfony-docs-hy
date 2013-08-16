@@ -13,7 +13,7 @@ How to Install
 <li><a href="doc/index.md"><b>Նախաբան</b</a></li>
 <li><a href="#doc/http_fundamentals.md">Symfony2 and HTTP Fundamentals</a></li>
 <li><a href="#doc/from_flat_php_to_symfony2.md">Symfony2 versus Flat PHP</a></li>
-<li><a href="#doc/installation.md">Installing and Configuring Symfony</a></li>
+<li><a href="doc/installation.md"><b>Տեղադրումը և կարգավորումը</b></a></li>
 <li><a href="#doc/page_creation.md">Creating Pages in Symfony2</a></li>
 <li><a href="#doc/controller.md">Controller</a></li>
 <li><a href="#doc/routing.md">Routing</a></li>
