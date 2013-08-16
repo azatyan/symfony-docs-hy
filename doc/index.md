@@ -38,7 +38,7 @@
 <li>PHP APC Extension</li>
 <li>Համատեղելիությունը ստուգելու համար հավաքեք <pre>php app/check.php</pre></li>
 </ol>
-<p>Հառորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
+<p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
 </div>
 <b>Ինչից օգտվել</b></div>
 <br>
