@@ -1,6 +1,9 @@
 <img border="0" src="../img/symfony2hy.png" width="200"></a>
 <br>
 <b>Նախաբան</b><br>
+<p>Այս գրառմամբ կսկսեմ բլոգ՝ Symfony2(Սիմֆոնի2)-ի մասին՝ հայերեն լեզվով: Գրառումներում կլինեն թարգմանություններ պաշտոնական փաստաթղթերից , սակայն ազատ ոճով: Բլոգը առաջին հերթին 
+կատարելու  Սիմֆոնիի Հայաստանում տարածելու առաքելություն: Օգնելու համար կարդացեք ReadMe-ն:</p>
+<p>Բլոգի նյութերը կհրապարակվեն նաև kode.am-ում: Ձեր բլոգում նյութը տեղադրելու համար կապվեք ինձ հետ</p>
 <br>
 Սկիզբ՝ բառիս բուն իմաստով: Symfony2-ով սկսել է նոր դարաշրջան PHP Framework-ների համար: Այն փոխում է Framework-ների մասին պատկերացումները:</div>
 <br />
@@ -43,4 +46,6 @@
 <li><b>Պաշտոնական կայք՝ </b><a href="http://symfony.com/">http://symfony.com/</a></li>
 <li><b>Բլոգ </b><a href="http://symfony.com/blog/">http://symfony.com/blog/</a></li>
 <li><b>Google </b><b>խումբ</b><b> </b><a href="https://groups.google.com/forum/#!forum/symfony2">https://groups.google.com/forum/#!forum/symfony2</a></li>
+<li><b>Facebook Group</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
+<li><b>Armenian Community</b><a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
 </ol>
