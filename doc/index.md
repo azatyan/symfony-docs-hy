@@ -47,5 +47,5 @@
 <li><b>Բլոգ </b><a href="http://symfony.com/blog/">http://symfony.com/blog/</a></li>
 <li><b>Google </b><b>խումբ</b><b> </b><a href="https://groups.google.com/forum/#!forum/symfony2">https://groups.google.com/forum/#!forum/symfony2</a></li>
 <li><b>Facebook Group</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
-<li><b>Armenian Community</b><a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
+<li><b>Armenian Community</b> <a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
 </ol>
