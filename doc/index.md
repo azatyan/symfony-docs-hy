@@ -34,7 +34,7 @@
 <ol>
 <li>HTTP սերվեր, օրինակ՝ Apache,Nginx,IIS</li>
 <li>Տվյալների բազա, օրինակ՝ MySQL կամ MongoDB</li>
-<li>PHP (&gt; 5.3.2), խորհուրդ է տրվում 5.4.x տարբերակները</li>
+<li>PHP (&gt; 5.3.8), խորհուրդ է տրվում 5.4.x տարբերակները</li>
 <li>SSH</li>
 <li>PHP APC Extension</li>
 <li>Համատեղելիությունը ստուգելու համար հավաքեք <pre>php app/check.php</pre></li>
