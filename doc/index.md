@@ -40,7 +40,6 @@
 <li>PHP APC Extension</li>
 <li>Համատեղելիությունը ստուգելու համար հավաքեք <pre>php app/check.php</pre></li>
 </ol>
-<p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
 </div>
 <b>Ինչից օգտվել</b></div>
 <br>
@@ -51,3 +50,5 @@
 <li><b>Facebook Group</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
 <li><b>Armenian Community</b> <a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
 </ol>
+
+<p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
