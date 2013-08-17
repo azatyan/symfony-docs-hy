@@ -1,4 +1,4 @@
-<h1>Նախաբան</h1>
+<h1>Ներածություն</h1>
 <img border="0" src="../img/symfony2hy.png" width="200"></a>
 <br>
 <p>
