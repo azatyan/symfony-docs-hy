@@ -1,8 +1,9 @@
-<h1>Նախաբան</h1>
+<h1>Ներածություն</h1>
 <img border="0" src="../img/symfony2hy.png" width="200"></a>
 <br>
-<p>Այս գրառմամբ կսկսեմ բլոգ՝ Symfony2(Սիմֆոնի2)-ի մասին՝ հայերեն լեզվով: Գրառումներում կլինեն թարգմանություններ պաշտոնական փաստաթղթերից , սակայն ազատ ոճով: Բլոգը առաջին հերթին 
-կատարելու է  Սիմֆոնիի՝ Հայաստանում տարածելու առաքելություն: Օգնելու համար կարդացեք <a href="../README.md">ReadMe</a>-ն:</p>
+<p>
+Այս գրառումով բացում եմ Սիմֆոնի2-ի մասին հայալեզու գրառումների շարք, որտեղ մասնավորապես կլինեն պաշտոնական փաստաթղթերի թարգմանություններ (ազատ ոճով), ինչպես նաև հեղինակային նյութեր։ Բլոգի առաջնային առաքելությունն է տարածել Սիմֆոնին Հայաստանում։ Նախագծին աջակցելու համար տես <a href="../README.md">ReadMe</a> ֆայլը
+</p>
 <p>Բլոգի նյութերը կհրապարակվեն <a href="http://symfony.am">symfony.am</a> կայքում</p>
 <p>Բլոգի նյութերը կհրապարակվեն նաև <a href="http://kode.am">kode.am</a>-ում: Ձեր բլոգում նյութը տեղադրելու համար կապվեք ինձ հետ  tigran[@]azatyan[.]info</p>
 <p>Վիզուալ կերպով ծանոթանալու համար կարող եք բեռնել <a href="https://googledrive.com/host/0B3R_ZDBa-XVUSDN4SG5qLUstM00">PowerPoint Presnetation ֆայլը</a>
@@ -34,12 +35,11 @@
 <ol>
 <li>HTTP սերվեր, օրինակ՝ Apache,Nginx,IIS</li>
 <li>Տվյալների բազա, օրինակ՝ MySQL կամ MongoDB</li>
-<li>PHP (&gt; 5.3.2), խորհուրդ է տրվում 5.4.x տարբերակները</li>
+<li>PHP (&gt; 5.3.8), խորհուրդ է տրվում 5.4.x տարբերակները</li>
 <li>SSH</li>
 <li>PHP APC Extension</li>
 <li>Համատեղելիությունը ստուգելու համար հավաքեք <pre>php app/check.php</pre></li>
 </ol>
-<p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
 </div>
 <b>Ինչից օգտվել</b></div>
 <br>
@@ -50,3 +50,5 @@
 <li><b>Facebook Group</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
 <li><b>Armenian Community</b> <a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
 </ol>
+
+<p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
