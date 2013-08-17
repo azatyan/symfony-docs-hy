@@ -44,11 +44,11 @@
 <b>Ինչից օգտվել</b></div>
 <br>
 <ol>
-<li><b>Պաշտոնական կայք՝ </b><a href="http://symfony.com/">http://symfony.com/</a></li>
+<li><b>Պաշտոնական կայք </b><a href="http://symfony.com/">http://symfony.com/</a></li>
 <li><b>Բլոգ </b><a href="http://symfony.com/blog/">http://symfony.com/blog/</a></li>
-<li><b>Google </b><b>խումբ</b><b> </b><a href="https://groups.google.com/forum/#!forum/symfony2">https://groups.google.com/forum/#!forum/symfony2</a></li>
-<li><b>Facebook Group</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
-<li><b>Armenian Community</b> <a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
+<li><b>Google խումբ</b><b> </b><a href="https://groups.google.com/forum/#!forum/symfony2">https://groups.google.com/forum/#!forum/symfony2</a></li>
+<li><b>Facebook խումբ</b> <a href="https://www.facebook.com/groups/441965359184208/">https://www.facebook.com/groups/441965359184208/</a>
+<li><b>Հայկական ակումբ Sensio-ում</b> <a href="https://connect.sensiolabs.com/club/symfonyarmenia">https://connect.sensiolabs.com/club/symfonyarmenia</a></li>
 </ol>
 
 <p>Հաջորդ: <a href="installation.md">Տեղադրումը և կարգավորումը</a></p>
