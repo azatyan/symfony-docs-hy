@@ -1,2 +1,123 @@
 <h1>Տեղադրումը և կարգավորումը</h1>
+<p>
+Այս գրառման  նպատակն է օգնել Ձեզ կարգավորել և գործարկել  սիմֆոնիով աշխատող ծրագիր: </p>
+<p>Ուրախալի է նշել, որ սիմֆոնին տրամադրում է բազային փաթեթներ, որոնք Դուք կարող եք բեռնել և անմիջապես սկսել աշխատանքը:
+</p>
+<blockquote><strong>Խորհուրդ.</strong> Այցելե՛ք Symfony-ի <a href="https://github.com/symfony/symfony-standard">GIT շտեմարան</a></blockquote>
+<h2></h2>
+<blockquote><strong>Խորհուրդ.</strong> սկսեք Ձեր համակարգի համատեղելիության ստուգումից. այն պետք է ունենա տեղադրված <strong>PHP 5.3.8</strong> կամ ավելի բարձր տարբերակ: Խորհուրդ է տրվում 5.4.x տարբերակները</blockquote>
+
+<h2>Composer</h2>
+<blockquote>
+Նախ տեղադրեք composer-ը: 
+[bash]
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+[/bash] 
+<a href="http://getcomposer.org">Ի՞նչ է composer-ը</a>
+</blockquote>
+
+<blockquote><strong>Ուշադրություն</strong> այսուհետ բոլոր օրինակները կբերվեն Ubuntu Linux համակարգի համար, այլ համակարգերի դեպքում հնարավոր են տարբերություններ</blockquote>
+
+<h2>Տեղադրում: </h2>
+<p>
+Symfony2-ը տեղադրելու համար պարզապես հավաքեք հետևյալ հրամանը:
+</p>
+[bash]
+composer create-project symfony/framework-standard-edition /path/to/webroot/Symfony 2.3.3
+[/bash]
+<p>
+* 2.3.3 ի փոխարեն կարող եք նշել կոնկրետ տարբերակ, օրինակ 2.1.0
+</p>
+
+<p>
+Ավարտելուց հետո կունենաք մոտավորապես այսպիսի դիրեկտորիաների կառուցվածք.
+</p>
+
+[bash]
+    Symfony/ &lt;- նոր ստեղծված դիրեկտորիան
+        app/
+            cache/
+            config/
+            logs/
+        src/
+            ...
+        vendor/
+            ...
+        web/
+            app.php
+            ...
+[/bash]
+
+<p>
+Ամեն անգամ, երբ Դուք ավելացնեք նոր փաթեթ <strong><a href="http://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup">composer.json</a></strong>-ում, պետք է գործարկել այս հրամանը, որը կկատարի բոլոր անհրաժեշտ փոփոխությունները:
+</p>
+[bash]
+composer update
+[/bash]
+<p>Առաջին անգամ կողմնակի փաթեթները տեղադրելու համար հավաքեք:</p>
+[bash]
+composer install
+[/bash]
+
+<p>
+<h2>Ֆայլային համակարգի կառուցվածքը</h2>
+<ul>
+	<li><strong>vendor</strong> դիրեկտորիայում տեղակայվում են կողմնակի փաթեթները</li>
+	<li><strong>src</strong> դիրեկտորիան քոնն է, կարող ես ջնջել որպես օրինակ տեղակայված պարունակությունը և գրել այնտեղ քո բենդլը</li>
+	<li><strong>app</strong> դիրեկտորիան պարունակում է հիմնական կարգավորումները և այլն</li>
+        <li><strong>web</strong>-ը հանրային դիրեկտորիան է, որտեղ գտնվում են app.php և app_dev.php front controller-ները, որոնց կանդրադառնամ առաջիկա գրառումներից մեկում</li>
+</ul>
+</p>
+
+<blockquote>Խորհուրդ: Ստեղծեք GIT շտեմարան և միանգամից gitignore ֆայլում ավելացրեք հետևյալը<br />
+Ջիթ ինիցիալիզաիա
+[bash]git init[/bash]<br />
+<strong>.gitignore</strong> ֆայլի պարունակություն
+[bash]
+/web/uploads/*
+/web/bundles/*
+/web/js/*
+/web/css/*
+/web/img/*
+composer.lock
+/app/logs/*
+/app/cache/*
+/bin/
+/vendor/
+/app/config/parameters.yml
+*~
+[/bash]
+</blockquote>
+
+<h2>Մուտքի իրավունքների կարգավորում</h2>
+<p>Մուտքի իրավունքները կարգավորելու համար կատարեք հետևյալը:
+ACL-ով համակարգերի համար<br />
+<strong>chmod a+ ունեցող համակարգերում</strong>
+[bash]
+rm -rf app/cache/*
+rm -rf app/logs/*
+
+sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+sudo chmod +a "yourname allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+[/bash]
+<strong>chmod a+ չունեցող համակարգերում</strong>
+[bash]
+sudo setfacl -R -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
+sudo setfacl -dR -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
+[/bash]
+3. Առանց ACL համակարգերում, պետք է 
+app.php, app_dev.php և console ֆայլերի սկզբում ավելացնել
+[php]
+umask(0002); //  0775
+// կամ
+umask(0000); //  0777
+[/php]
+
+<blockquote><strong>Ուշադրություն</strong> Windows համակարգում մուտքի իրավունքների կարգավորում կարելի է չկատարել</blockquote>
+
+<p>
+<strong>Վե՛րջ</strong>, այժմ կարող եք բացել նոր նախագիծը դիտարկիչով, այս կարգի URL-ով
+</p>
+[bash]http://localhost/Symfony/web/app_dev.php/[/bash]
 <p>Նախորդ: <a href="index.md">Ներածություն</a></p>
