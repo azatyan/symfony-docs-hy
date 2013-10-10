@@ -29,9 +29,9 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "SFAB\\Blog": ""
+            "Azatyan\\SymfonyArmenianBlog": ""
         }
     },
-    "target-dir": "SFAB/Blog",
+    "target-dir": "Azatyan/SymfonyArmenianBlog",
     "minimum-stability": "dev"
 }
