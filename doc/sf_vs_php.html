@@ -1,0 +1,498 @@
+Ի՞նչու է սիմֆոնին ավելի լավ, քան պարզապես բացել ֆայլը և գրել հարթ PHP:
+
+Եթե դու երբևէ չես օգտագործել PHP ֆրեյմվորք, որը գրված է MVC֊ի փիլիսոփայության հիման վրա, կամ ծանոթ չէս Symfony2-ին, ապա այս բաժինը քո համար է։ Այն, որ սիմֆոնին առավել է, դու կարող ես համոզվել ինքդ։
+
+Այս բաժնում, դու կգրես պարզ ծրագիր՝ հարթ PHP ով, և հետո ռեֆակտոր կանես նույնը ավելի կարգավորված լինելու համար
+
+Դու կճանապարհորդես ժամանակի մեջ՝ տեսնելով հին լուծումներ, որոնք ծրագրավորողները օգտագործել են տարիներ շարունակ և նորարար լուծումներ, որոնք առաջարկում է Սիմֆոնին։
+Գրենք պարզ բլոգ՝ հարթ PHP-ով
+
+[php]
+// index.php
+$link = mysql_connect('localhost', 'myuser', 'mypassword');
+mysql_select_db('blog_db', $link);
+
+$result = mysql_query('SELECT id, title FROM post', $link);
+[/php]
+
+[html]
+&nbsp;
+<h1>List of Posts</h1>
+<ul>
+<ul><!--?php while ($row = mysql_fetch_assoc($result)): ?-->
+	<li><a href="/show.php?id=&lt;?php echo $row['id'] ?&gt;">
+<!--?php echo $row['title'] ?-->
+</a></li>
+</ul>
+</ul>
+&nbsp;
+
+[/html]
+
+[php]
+mysql_close($link);
+[/php]
+
+Սա արագ է գրել, արագ է աշխատում, բայց քանի որ քո ծրագիրը արագ աճում է, այն անհնար է դառնում սպասարկել։ Կան մի շարք խնդիրներ, որոնք անհրաժեշտ է լուծել։
+Չկան սխալների սռուգումներ։ Ի՞նչ կկատարվի, եթե բային միացումը չհաջողվի։
+Վատ կազմակերպվածություն։ Եթե ծրագիրը աճում է, այս մեկ ֆայլը կդառնա ավելի ու ավելի անպետք։ Ո՞րտեղ պետք է գրես ֆորմաի մշակման դուրս բերումը, ինչպե՞ս ես ստուգելու տվյալները։ Որտե՞ղ գնալ էլ֊փսոտի ուղարկումից հետո․․
+Դժվար է դառնում կոդի բազմակի օգտագործումը։ Քանի որ ամբողջը մեկ ֆայլում է, չկա տարբերակ նույն կոդը օգատգործել այլ էջերում։
+
+Եվս մեկ խնդիր․ ըստ նշվածի բազան կապված է MySQL-ի հետ, իսկ սիմֆոնին ամբողջապես ինտեգրում է դոկտրինը՝ գրադարան, որը թույլ է տալիս բազան և տվյալները նայել աբստրակտ ձևով։
+
+Ա՛րի աշխատենք այս խնդիրների լուծումների վրա և ոչ միայն
+
+[php]
+// index.php
+$link = mysql_connect('localhost', 'myuser', 'mypassword');
+mysql_select_db('blog_db', $link);
+
+$result = mysql_query('SELECT id, title FROM post', $link);
+
+$posts = array();
+while ($row = mysql_fetch_assoc($result)) {
+$posts[] = $row;
+}
+
+mysql_close($link);
+
+// include the HTML presentation code
+require 'templates/list.php';
+[/php]
+
+HTML կոդը այժմ տեղափոխված է առանձին ֆայլ (templates/list.php), բայց այն չի օգատգործում ձևաչափի սինտաքսիս, այլ սովորական PHP-ով է
+
+[html]
+&nbsp;
+<h1>List of Posts</h1>
+<ul>
+<ul><!--?php foreach ($posts as $post): ?-->
+	<li><a href="/read?id=&lt;?php echo $post['id'] ?&gt;">
+<!--?php echo $post['title'] ?-->
+</a></li>
+</ul>
+</ul>
+&nbsp;
+
+[/html]
+
+Ըստ համաձայնության, ֆայլը որը կատարում է ծրագրի լոգիկան, անվանվում է կարգավորիչ։
+Կարգավորիչ տերմինը դու դեռ շատ կլսես անկապ, թե ինչ ձևաչափ կամ լեզու ես օգատգործում։ Այն վերաբերում է միայն կոդի հատվածին, որը աշխատացնում է կոդը և վերադարձնում պատասխան
+
+Այս դեպքում կարգավորիչը կանչում է տվյալներ բազայից, հետո միացնում է իրեն ձևանմուշը՝ այդ տվյալների ցուցադրման համար։ Սա թույլ է տալիս օրինակ փոխել միայն ձևանմուշը, եթե դու որոշել ես ստանալ տվյալներ, օրինակ JSON ֆորմատով։
+
+Դեռևս ծրագիրը ունի միայն մեկ էջ։ Բայց ի՞նչ, եթե երկրորդ էջում պահանջվի միացում նույն բազային և նույն հաղորդագրությունների զանգվածը։ Նոր ռեֆակտորինգում, որոշ ֆունկցիաներ տեղափոխվել են model.php ֆայլ։
+
+[php]
+// model.php
+function open_database_connection()
+{
+$link = mysql_connect('localhost', 'myuser', 'mypassword');
+mysql_select_db('blog_db', $link);
+
+return $link;
+}
+
+function close_database_connection($link)
+{
+mysql_close($link);
+}
+
+function get_all_posts()
+{
+$link = open_database_connection();
+
+$result = mysql_query('SELECT id, title FROM post', $link);
+$posts = array();
+while ($row = mysql_fetch_assoc($result)) {
+$posts[] = $row;
+}
+close_database_connection($link);
+
+return $posts;
+}
+[/php]
+
+model.php֊ն օգտագործվում է նրա համար, ոիպիսզի առանձնացվի լոգիկան և մուտքը տվյալներին ։ Լավ կազմակերպված ծրագրում, կոդի մեծամասնությունը, որը ներկայացնում է ծրագրի բիզնես֊լոգիկան, որը պետք է ապրի կարգավորչից առանձին։
+Հիմա կարգավորիչը ունի շատ պարզ տեսք։
+
+[php]
+require_once 'model.php';
+
+$posts = get_all_posts();
+
+require 'templates/list.php';
+[/php]
+
+Ներկայումս կանտրոլլերի միակ ֆունկցիան մոդելից տվայլաներ ստանալն է, և դրա փոխանցումը ձևանմուշին, տվյալների վիզուալացման համար
+
+Փորձենք ստեղծել layout.php ֆայլ որտեղ տեղափոխենք էջի մակետը։
+
+[html]
+<!-- templates/layout.php -->
+
+
+<!--?php echo $content ?-->
+
+
+[/html]
+
+Իսկ (templates/list.php) ֆայլը հիմա պարզապես ժառանգվում է մակետից
+
+&nbsp;
+
+[php]
+<!--?php ob_start() ?-->
+<h1>List of Posts</h1>
+<ul>
+<ul><!--?php foreach ($posts as $post): ?-->
+	<li><a href="/read?id=&lt;?php echo $post['id'] ?&gt;">
+<!--?php echo $post['title'] ?-->
+</a></li>
+</ul>
+</ul>
+&nbsp;
+
+&nbsp;
+
+<!--?php include 'layout.php' ?-->
+[/php]
+
+Դու հիմա ներդրեցիր մեթոդ՝ կոդի բազմակի օգտագործման համար։ Ցավոք, նպատակին հասնելու համար դու պետք է օգտագործես միքանի տգեղ ֆունկցիաներ (ob_start (), ob_get_clean ()) ձևանմուշի մեջ, իսկ Սիմֆոնին օգտագործում է կոմպոնենտներ, որոնք դույլ են տալիս սա անել մաքուր և հեշտ։ Դու կտեսնես դա մոտ ժամանակում։
+<h3>Գրառման էջի ստեղծում</h3>
+Ցուցակը այժմ վերափոխված է, այն ավելի կազմակեպվել է և կարելի է բազմակի օգտագործել։ Սա ապացուցելու համար արի ստեղծենք բլոգային գրառումը ցուցադրող էջ, որը ստնում է գրառում իր յուրահատուկ նույնացուցիչով՝ ID-ով։
+Սկզբի համար ստեղծենք նոր ֆունկցիա մոդելի մեջ որը ստանու է առանձին բլոգային գրառում՝ ID֊ի հիման վրա
+
+[php]
+// model.php
+function get_post_by_id($id)
+{
+$link = open_database_connection();
+
+$id = intval($id);
+$query = 'SELECT date, title, body FROM post WHERE id = '.$id;
+$result = mysql_query($query);
+$row = mysql_fetch_assoc($result);
+
+close_database_connection($link);
+
+return $row;
+}
+[/php]
+
+Հիմա ստեղծենք show.php վերահսկիչը, որը կպարունակի մեր նոր էջի լոգիկան
+
+[php]
+require_once 'model.php';
+
+$post = get_post_by_id($_GET['id']);
+
+require 'templates/show.php';
+[/php]
+
+Վերջում ստեղծենք templates/show.php ձևանմուշը որը կվիզուալացնի գրառումը
+
+[php]
+<!--?php $title = $post['title'] ?-->
+
+&nbsp;
+<h1></h1>
+<div class="date"></div>
+<div class="body"></div>
+&nbsp;
+
+<!--?php include 'layout.php' ?-->
+[/php]
+
+Երկրորդ էջի ստեղծումը հիմա շատ հեշտ է և կոդը չի կրկնվում։ Ամեն դեպքում այս էջում կա ավելի բարդ խնդիրներ, քան բազան կարող էլ «լուծել» քո համար։ Օրինակ չկան ստուգումներ ID-ի համար և սխալ մուտքագրումը կբերի կրախի։ Ավելի լավ կլիներ, եթե դա տաներ 404 էջ, որը ստեղծել բարդ չէ։ Սակայն եթե դու չօգտագործես օրինակ intval() ֆունկցիան ապա քո տվյալները կհայտնվեն վտանգի տակ, և ծրագիրը խոցելի կլինի SQL ինյեկցիաի միջոցով։
+Եվս մեկ կարևոր խնդիրը նա է որ կարգաորիչը պետք է ներառի model.php ֆայլը։ Ինչ անել եթե պետէ է միացնել լրացուցիչ ֆայլ, որը կկատարի այլ գլոբալ ֆունկցիա, օրինակ անվտանգության ապահովում։ Այն ստիպված պետք է ավելացնել բոլոր կարգավորիչներում։ Եթե մոռանանք դա անել, ապա կառաջանա անվտանգության խնդիր։
+<h2>Առաջնային կարգավորիչը գալիս է օգնության</h2>
+Լուծումը կայանում է առաջնային կարգավորիչի օգատգործման մեջ։ Մի PHP ֆայլի, որի միջով անցնում և մշակվում են բոլոր հարցումները։ URL-ը փոխվում է շատ քիչ բայց դառնում է ավելի ճկուն
+
+Առանց առաջնային կարգավորիչի
+
+/index.php =&gt; Ցուցակի էջ (կատարվող ֆայլ։index.php)
+/show.php =&gt; Գրառման էջ (կատարվող ֆայլ։ show.php)
+
+Առաջնային կարգավորիչով
+
+/index.php =&gt; Ցուցակի էջ (կատարվող ֆայլ։index.php)
+/index.php/show =&gt; Գրառման էջ (կատարվող ֆայլ։index.php)
+
+index.php-ն կարելի է հեռացնել URL-ից՝ օգտագործելով վեբ սերվերի url rewrite կարգավորումները, որի արդյունքում կմնա / և /show/ID/
+
+Դու պատրաստվում ես կատարել քայլ դեպի ծրագիր, որն ունի մեկ ֆայլ, որ պատասխանում է բոլոր հարցումներին, որտեղ կարող ես ստեղծել անվտանգության ստուգում, կոնֆիգուրացիայի բեռնում և հասցեավորում։ Կոդը մոտավորապես կունենա այսպիսի տեսք։
+
+[php]
+// index.php
+
+// load and initialize any global libraries
+require_once 'model.php';
+require_once 'controllers.php';
+
+// route the request internally
+$uri = $_SERVER['REQUEST_URI'];
+if ('/index.php' == $uri) {
+list_action();
+} elseif ('/index.php/show' == $uri &amp;&amp; isset($_GET['id'])) {
+show_action($_GET['id']);
+} else {
+header('Status: 404 Not Found');
+echo '
+<h1>Page Not Found</h1>
+&nbsp;
+
+';
+}
+
+&nbsp;
+
+[/php]
+
+Կարգավորիչների կազմակերպման համար, երկու ֆունկցիաները տեղափոխենք առանցին controllers.php ֆայլ
+
+[php]
+function list_action()
+{
+$posts = get_all_posts();
+require 'templates/list.php';
+}
+
+function show_action($id)
+{
+$post = get_post_by_id($id);
+require 'templates/show.php';
+}
+[/php]
+
+Առաջնային կարգավորիչը ստացավ միանգամայն այլ դեր, որը իր մեջ ներառում է հասցեավորման գրադարանի ներառումը։ Իրականում առաջնային կարգավորիչը գնալավ նմանվում է սիմֆոնիին։
+
+Ես մեկ առավելությունը կայանում է ճկուն URL-ների հնարավորթյունը, օրինակ գրառման դիտման էջի URL֊ը փոխելու համար կոդը պետք է փոփոխել միայն մեկ տեղ։ Իսկ նախկինում պետք էր անվանափոխել ամբողջ ֆայլը
+
+Ներկայումս ծրագիրը մեկ ֆայլից վերածվել է ամբողջական ստրուկտուրայի, որը կազամկերպված է և թույլ է տալիս կոդը բազմակի օգատգործումը։ Դու պետք է երջանիկ լինես, բայց ոչ մինչև վերջ բավարարված։ Օրինակ հացեսավորման համակարգը անհասկանալի է և ունի շատ թերություններ։
+<h2>Ավելացնենք Սիմֆոնի2-ի հպում</h2>
+Սիմֆոնին շտապում է օգնել։ Այն օգտագործելուց առաջ պետք է բեռնել, որն արվում է քմփոզեռի միջոցով։ Վերջինս քո փոխարեն կմտածի բոլոր գրադարանների և բենդլների բեռնման, տարբերակների, կախվածույթունների և մի շարք այլ կարևոր բաների մասին
+
+composer.json-ում պետք է ավելացնել հետևյալը
+
+[javascript]
+{
+"require": {
+"symfony/symfony": "2.3.*"
+},
+"autoload": {
+"files": ["model.php","controllers.php"]
+}
+}
+[/javascript]
+
+Պարզապես տերմինալից հավաքեք composer install հրամանը։ Բացի էս ամենը քմփոզեռը սկտեղծի նաև autoload.php ֆայլը, որը կմիացնի բոլոր գրադարաններն ու PHP ֆայլերը, ինչը հետագայում շատ կթեթևացնի քո գործը։
+Մեր արդեն կիսա֊սիմֆոնի ծրագիրը կունենա այսպիսի տեսք
+
+[php]
+// index.php
+require_once 'vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+$request = Request::createFromGlobals();
+
+$uri = $request-&gt;getPathInfo();
+if ('/' == $uri) {
+$response = list_action();
+} elseif ('/show' == $uri &amp;&amp; $request-&gt;query-&gt;has('id')) {
+$response = show_action($request-&gt;query-&gt;get('id'));
+} else {
+$html = '
+<h1>Page Not Found</h1>
+&nbsp;
+
+';
+$response = new Response($html, 404);
+}
+
+&nbsp;
+
+// echo the headers and send the response
+$response-&gt;send();
+[/php]
+
+Կարգավորիչները արդեն պախասլանում են Response օբյեկտով, որը հեշտացնում է օրինակ render_template() ֆունկցիաի օգտագործումը, ինչը խիստ նման է Սիմֆոնիի ձևանմուշների շարժիչին։"
+
+[php]
+// controllers.php
+use Symfony\Component\HttpFoundation\Response;
+
+function list_action()
+{
+$posts = get_all_posts();
+$html = render_template('templates/list.php', array('posts' =&gt; $posts));
+
+return new Response($html);
+}
+
+function show_action($id)
+{
+$post = get_post_by_id($id);
+$html = render_template('templates/show.php', array('post' =&gt; $post));
+
+return new Response($html);
+}
+
+// helper function to render templates
+function render_template($path, array $args)
+{
+extract($args);
+ob_start();
+require $path;
+$html = ob_get_clean();
+
+return $html;
+}
+[/php]
+
+Հավաքելով սիմֆոնիի փոքր հատված՝ ծրագրիը դարծավ ավելի ճկուն և հուսալի։ Սա նշանակում է հուսալի մուտք ինֆորմացիաին՝ HTTP արձանագրության միջոցավ։ Մանավորապես getPathInfo() ֆունկցիան վերադարձնում է այսպես կոչված մաքրված URL-ը, իսկ սա նշանակում է, որ ծրագրիը այնքան խելացի է, որ կարող է հեշտությամբ հասցեավորել հարցումը show_action() մեթոդին
+
+Պատասխանի օբյեկտը տալիս է HTTP պատասխանի կառուցման ճկունությունը։ Օրինակ կարելի է հեշտությամբ հանել կամ ավելացնել գլխագրեր։
+<h2>Symfony2 ծրագրի օրինակ</h2>
+Բլոգն անցավ երկար ուղի։ Այս ընթացքում մենք ստեղծեցինք հասցեավորում և ձևանմուշի դուրս բերման տաևբերևակ՝ ob_start () և ob_get_clean () ֆունկցիաներով։
+
+Եթե ինչ֊որ պատճառով դու ծրագիրը ցանկանում ես գրել զրոյից, կարող ես գոնե օգտագործել սիմֆոնիի հասցեավորման և ձևանմուշների մեքենան, որոնք կլուծեն հետևյալ խնդիրները։
+
+Այս խնդիրների բազմակի լուծման փոխարեն, դու պարզապես կարող ես օգտագործել սիմֆոնի, ինչը շատ կհեշտացնի քո կյանքը։ Այժմ մեր ծրագիրը ներկառուցված է սիմֆոնիի մեջ
+
+[php]
+// src/Acme/BlogBundle/Controller/BlogController.php
+namespace Acme\BlogBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class BlogController extends Controller
+{
+public function listAction()
+{
+$posts = $this-&gt;get('doctrine')-&gt;getManager()
+-&gt;createQuery('SELECT p FROM AcmeBlogBundle:Post p')
+-&gt;execute();
+
+return $this-&gt;render(
+'AcmeBlogBundle:Blog:list.html.php',
+array('posts' =&gt; $posts)
+);
+}
+
+public function showAction($id)
+{
+$post = $this-&gt;get('doctrine')
+-&gt;getManager()
+-&gt;getRepository('AcmeBlogBundle:Post')
+-&gt;find($id)
+;
+
+if (!$post) {
+// cause the 404 page not found to be displayed
+throw $this-&gt;createNotFoundException();
+}
+
+return $this-&gt;render(
+'AcmeBlogBundle:Blog:show.html.php',
+array('post' =&gt; $post)
+);
+}
+}
+[/php]
+
+Երկու կարգաորիչները նույն ձևով պարզ են։ Նրանք օգտագործում են Doctrine ORM գրադարանը բազայից օբյեկտների ստացման և ձևանմուշների կոմպոնենտը, որը վերադարձնում է պատասխանի օբյեկտ, իսկ ձևանմուշը կունենա այսպիսի տեսք
+
+[html]
+<!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php -->
+<!--?php $view--->extend('::layout.html.php') ?&gt;
+
+&nbsp;
+<h1>List of Posts</h1>
+<ul>
+	<li><a href="&lt;?php echo $view['router']-&gt;generate(&lt;br /&gt;
+            'blog_show',&lt;br /&gt;
+            array('id' =&gt; $post-&gt;getId())&lt;br /&gt;
+        ) ?&gt;">
+<!--?php echo $post--->getTitle() ?&gt;
+</a></li>
+</ul>
+The layout is nearly identical:
+
+<!-- app/Resources/views/layout.html.php -->
+
+
+&lt;?php echo $view['slots']-&gt;output(&lt;br ?&gt; 'title',
+'Default title'
+) ?&gt;
+
+<!--?php echo $view['slots']--->output('_content') ?&gt;
+
+[/html]
+
+Երբ բեռնվում է սիմֆոնիի միջուկը, այն զգում է քարտեզի պահանջ, որը կիմանար թե ինչ կարգավորիչներ են օգտագորխվում և այլն, սա գրվում է routing.yml ֆայլում, YAML ֆորմատով
+
+Երկու կարգաորիչները նույն ձևով պարզ են։ Նրանք օգտագործում են Doctrine ORM գրադարանը բազայից օբյեկտների ստացման և ձևանմուշների կոմպոնենտը, որը վերադարձնում է պատասխանի օբյեկտ, իսկ ձևանմուշը կունենա այսպիսի տեսք
+
+[bash]
+# app/config/routing.yml
+blog_list:
+path: /blog
+defaults: { _controller: AcmeBlogBundle:Blog:list }
+
+blog_show:
+path: /blog/show/{id}
+defaults: { _controller: AcmeBlogBundle:Blog:show }
+[/bash]
+
+Հիմա մեր դիմային կարգավորիչը չափազանց պարզ է
+
+[php]
+// web/app.php
+require_once __DIR__.'/../app/bootstrap.php';
+require_once __DIR__.'/../app/AppKernel.php';
+
+use Symfony\Component\HttpFoundation\Request;
+
+$kernel = new AppKernel('prod', false);
+$kernel-&gt;handle(Request::createFromGlobals())-&gt;send();
+[/php]
+
+Դիմային կարգավորիչի միակ աշխառանքը սիմֆոնիի ինիցաիալզիացումն է, հարցման հասցեավորումը և պատասխանի ստացումը
+
+Վերջում ներկայացնեմ Twig լեզվով գրված ձևանմուշը
+
+[html]
+{# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
+{% extends "::layout.html.twig" %}
+
+{% block title %}List of Posts{% endblock %}
+
+{% block body %}
+<h1>List of Posts</h1>
+
+<ul>{% for post in posts %}
+	<li><a href="{{ path('blog_show', {'id': post.id}) }}">
+{{ post.title }}
+</a></li>
+</ul>
+{% endfor %}
+
+{% endblock %}
+[/html]
+
+layout.html.twig ը ավելի հեշտ է գրել
+
+[html]
+{# app/Resources/views/layout.html.twig #}
+
+
+{% block body %}{% endblock %}
+
+
+[/html]
+Twig֊ը սիմֆոնիի բաղկացուցիչ մասերից է, նրա մասին դու ավելի մանրամասն կիմանաս հաջորդ բաժիններում
+
+Մինչ հանդիպում՝ ապագա սինֆոնիստ և շնարհակալություն համբերության համար։ Ց․
