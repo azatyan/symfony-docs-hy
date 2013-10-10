@@ -13,7 +13,7 @@ How to Install
 <ul class="simple">
 <li><a href="doc/index.html"><b>Ներածություն</b></a></li>
 <li><a href="doc/http.html"><b>Symfony2ը և  HTTP֊ի հիմնադրույթները</b></a></li>
-<li><a href="doc/sf_vs_php.html">Symfony2֊ն ընդդեմ հարթ PHP-ի</a></li>
+<li><a href="doc/sf_vs_php.html"><b>Symfony2֊ն ընդդեմ հարթ PHP-ի</b></a></li>
 <li><a href="doc/installation.html"><b>Տեղադրումը և կարգավորումը</b></a></li>
 <li><a href="#doc/page_creation.html">Creating Pages in Symfony2</a></li>
 <li><a href="#doc/controller.html">Controller</a></li>
