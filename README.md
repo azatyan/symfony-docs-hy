@@ -1,12 +1,8 @@
-Symfony2 Framework Armenian Blog
+Symfony2 Framework Armenian Documentation
 =============
-<a target="_blank" href="http://symfony.am"><b>Official Website</b></a>
+<a target="_blank" href="http://symfony.am"><b>Project Website</b></a>
 
-How to Install
-============
-<pre>composer require "tigran/symfony-blog-armenian"</pre>
-
-Յուրաքանչյուրը կարող է օգնել զարգացնել այս միտքը: 
+Յուրաքանչյուրը կարող է օգնել զարգացնել: 
 Ընդհամենը անհրաժեշտ է Fork անել, փոփոխել/ավելացնել  նյութերը և ստեղծել Pull Request
 
 
